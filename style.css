@@ -27,6 +27,7 @@ html {
 body {
 	min-height: 100vh;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: var(--cl-background);
@@ -37,6 +38,7 @@ h1 {
 	font-family: "Press Start 2P", sans-serif;
 	color: var(--cl-header-color);
 	font-size: 3.4rem;
+	text-align: center;
 	margin-bottom: 6rem;
 }
 
@@ -46,7 +48,7 @@ h1 {
 	margin: 0 auto;
 	align-items: center;
 	justify-items: center;
-	max-width: 40rem;
+	max-width: 50rem;
 	grid-template-columns: 20rem 20rem;
 	grid-template-rows: 20rem 20rem;
 	gap: 2rem;
