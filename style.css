@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--cl-background: #011f3f;
+	--cl-header-color: #fef2bf;
+	--cl-red: #ff0000;
+	--cl-green: #00ff00;
+	--cl-blue: #0000ff;
+	--cl-yellow: #ffff00;
+	--cl-white: #fff;
+	--cl-grey: #808080;
+	--cl-black: #000;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--cl-background);
+}
+
+/* Heading */
+h1 {
+	font-family: "Press Start 2P", sans-serif;
+	color: var(--cl-header-color);
+	font-size: 3.4rem;
+	margin-bottom: 6rem;
+}
+
+/* Contianer */
+.container {
+	display: grid;
+	margin: 0 auto;
+	align-items: center;
+	justify-items: center;
+	max-width: 40rem;
+	grid-template-columns: 20rem 20rem;
+	grid-template-rows: 20rem 20rem;
+	gap: 2rem;
+}
+
+/* Color */
+.color {
+	border: 7px solid var(--cl-black);
+	border-radius: 2rem;
+	width: 18rem;
+	height: 18rem;
+	background-color: var(--cl-white);
+}
+
+.green {
+	background-color: var(--cl-green);
+}
+
+.red {
+	background-color: var(--cl-red);
+}
+
+.yellow {
+	background-color: var(--cl-yellow);
+}
+
+.blue {
+	background-color: var(--cl-blue);
+}
+
+/* When pressed  */
+.pressed {
+	box-shadow: 0 0 2rem var(--cl-white);
+	background-color: var(--cl-grey);
+}
