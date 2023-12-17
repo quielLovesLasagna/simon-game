@@ -55,6 +55,30 @@ function nextSequence() {
 	playSound(randomChosenColor);
 }
 
+function checkAnswer(currentLevel) {
+	// Check if the most recent user answer matches the game pattern
+	if (userClickedPattern[currentLevel - 1] === gamePattern[currentLevel - 1]) {
+		// Check if the user has finished their sequence
+		if (userClickedPattern.length === gamePattern.length) {
+			// Clear the user's sequence for the next level after a delay
+			setTimeout(() => {
+				userClickedPattern = [];
+				nextSequence();
+			}, 1000);
+		}
+	} else {
+		// If the sequences do not match, end the game
+		alert("Game Over! Your score is: " + (level - 1));
+
+		// Reset variables for a new game
+		gamePattern = [];
+		userClickedPattern = [];
+		start = false;
+		level = 0;
+		heading.textContent = "Press Any Key to Start";
+	}
+}
+
 // Event Listener/s
 container.addEventListener("click", function (event) {
 	// Target element/s with the class "color"
@@ -74,6 +98,9 @@ container.addEventListener("click", function (event) {
 
 	// Animate corresponding button color
 	animatePress(userChosenColor);
+
+	// Check the user's answer
+	checkAnswer(userClickedPattern.length);
 });
 
 document.addEventListener("keydown", function (event) {
