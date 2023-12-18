@@ -6,6 +6,11 @@ const container = document.querySelector(".container");
 const body = document.querySelector("body");
 
 // Initial state data/s
+let gamePattern = [];
+let userClickedPattern = [];
+let start = false;
+let level = 0;
+
 const buttonColors = ["red", "blue", "green", "yellow"];
 const sounds = {
 	wrong: new Audio("./sounds/wrong.mp3"),
@@ -14,11 +19,6 @@ const sounds = {
 	yellow: new Audio("./sounds/yellow.mp3"),
 	red: new Audio("./sounds/red.mp3"),
 };
-
-let gamePattern = [];
-let userClickedPattern = [];
-let start = false;
-let level = 0;
 
 // Function/s
 function playSound(name) {
@@ -46,7 +46,8 @@ function nextSequence() {
 	// Increment level by 1
 	level++;
 
-	heading.textContent = `Level ${level}`;
+	// Change heading textContent
+	heading.textContent = "Level " + level;
 
 	// Generate a random number from 0 - 3
 	const randomNumber = Math.floor(Math.random() * 4);
@@ -67,6 +68,7 @@ function nextSequence() {
 	playSound(randomChosenColor);
 }
 
+// Restart game
 function startOver() {
 	gamePattern = [];
 	userClickedPattern = [];
@@ -104,8 +106,7 @@ function checkAnswer(currentLevel) {
 	}
 }
 
-// Event Listener/s
-container.addEventListener("click", function (event) {
+function handleButtonClick(event) {
 	// Target element/s with the class "color"
 	const element = event.target.closest(".color");
 
@@ -126,8 +127,13 @@ container.addEventListener("click", function (event) {
 
 	// Check the user's answer
 	checkAnswer(userClickedPattern.length);
-});
+}
 
+// Event Listener/s
+// For: When a button is clicked
+container.addEventListener("click", handleButtonClick);
+
+// For: Starting the game
 document.addEventListener("keydown", function () {
 	if (!start) {
 		nextSequence();
