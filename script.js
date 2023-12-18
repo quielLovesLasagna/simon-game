@@ -14,6 +14,7 @@ const sounds = {
 	yellow: new Audio("./sounds/yellow.mp3"),
 	red: new Audio("./sounds/red.mp3"),
 };
+
 let gamePattern = [];
 let userClickedPattern = [];
 let start = false;
@@ -52,8 +53,6 @@ function nextSequence() {
 
 	// Using randomNumber, select an element in buttonColors array
 	const randomChosenColor = buttonColors[randomNumber];
-
-	console.log(randomChosenColor);
 
 	// Add radomChosenColor to gamePattern array
 	gamePattern.push(randomChosenColor);
@@ -115,7 +114,6 @@ container.addEventListener("click", function (event) {
 
 	// Get element id (with corresponding color)
 	const userChosenColor = element.id;
-	console.log(userChosenColor);
 
 	// Add the corresponding color to userClickedPattern array
 	userClickedPattern.push(userChosenColor);
