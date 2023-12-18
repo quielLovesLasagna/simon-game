@@ -5,14 +5,26 @@ const heading = document.querySelector("h1");
 const container = document.querySelector(".container");
 const body = document.querySelector("body");
 
-// Data/s
+// Initial state data/s
 const buttonColors = ["red", "blue", "green", "yellow"];
+const sounds = {
+	wrong: new Audio("./sounds/wrong.mp3"),
+	green: new Audio("./sounds/green.mp3"),
+	blue: new Audio("./sounds/blue.mp3"),
+	yellow: new Audio("./sounds/yellow.mp3"),
+	red: new Audio("./sounds/red.mp3"),
+};
 let gamePattern = [];
 let userClickedPattern = [];
 let start = false;
 let level = 0;
 
 // Function/s
+function playSound(name) {
+	const sound = sounds[name];
+	sound.play();
+}
+
 function animatePress(currentColor) {
 	// Get button element based on corresponding color
 	const button = document.getElementById(currentColor);
@@ -26,12 +38,10 @@ function animatePress(currentColor) {
 	}, 100);
 }
 
-function playSound(name) {
-	let sound = new Audio(`./sounds/${name}.mp3`);
-	sound.play();
-}
-
 function nextSequence() {
+	// Clear the user's sequence
+	userClickedPattern = [];
+
 	// Increment level by 1
 	level++;
 
@@ -42,6 +52,8 @@ function nextSequence() {
 
 	// Using randomNumber, select an element in buttonColors array
 	const randomChosenColor = buttonColors[randomNumber];
+
+	console.log(randomChosenColor);
 
 	// Add radomChosenColor to gamePattern array
 	gamePattern.push(randomChosenColor);
@@ -56,6 +68,13 @@ function nextSequence() {
 	playSound(randomChosenColor);
 }
 
+function startOver() {
+	gamePattern = [];
+	userClickedPattern = [];
+	start = false;
+	level = 0;
+}
+
 function checkAnswer(currentLevel) {
 	// Check if the most recent user answer matches the game pattern
 	if (userClickedPattern[currentLevel - 1] === gamePattern[currentLevel - 1]) {
@@ -63,7 +82,6 @@ function checkAnswer(currentLevel) {
 		if (userClickedPattern.length === gamePattern.length) {
 			// Clear the user's sequence for the next level after a delay
 			setTimeout(() => {
-				userClickedPattern = [];
 				nextSequence();
 			}, 1000);
 		}
@@ -82,11 +100,8 @@ function checkAnswer(currentLevel) {
 		// Change heading textContent
 		heading.textContent = "Game Over, Press Any Key to Restart";
 
-		// Reset variables for a new game
-		gamePattern = [];
-		userClickedPattern = [];
-		start = false;
-		level = 0;
+		// Restart game
+		startOver();
 	}
 }
 
@@ -100,6 +115,7 @@ container.addEventListener("click", function (event) {
 
 	// Get element id (with corresponding color)
 	const userChosenColor = element.id;
+	console.log(userChosenColor);
 
 	// Add the corresponding color to userClickedPattern array
 	userClickedPattern.push(userChosenColor);
@@ -114,7 +130,7 @@ container.addEventListener("click", function (event) {
 	checkAnswer(userClickedPattern.length);
 });
 
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", function () {
 	if (!start) {
 		nextSequence();
 		start = !start;
