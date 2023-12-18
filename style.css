@@ -84,3 +84,9 @@ h1 {
 	box-shadow: 0 0 2rem var(--cl-white);
 	background-color: var(--cl-grey);
 }
+
+/* When wrong */
+.game-over {
+	background-color: red;
+	opacity: 0.8;
+}

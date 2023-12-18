@@ -3,6 +3,7 @@
 // Element/s
 const heading = document.querySelector("h1");
 const container = document.querySelector(".container");
+const body = document.querySelector("body");
 
 // Data/s
 const buttonColors = ["red", "blue", "green", "yellow"];
@@ -67,15 +68,25 @@ function checkAnswer(currentLevel) {
 			}, 1000);
 		}
 	} else {
-		// If the sequences do not match, end the game
-		alert("Game Over! Your score is: " + (level - 1));
+		// Play wrong sound
+		playSound("wrong");
+
+		// Add "game-over" class to document body
+		body.classList.add("game-over");
+
+		// Remove "game-over" class after 200 milliseconds
+		setTimeout(() => {
+			body.classList.remove("game-over");
+		}, 200);
+
+		// Change heading textContent
+		heading.textContent = "Game Over, Press Any Key to Restart";
 
 		// Reset variables for a new game
 		gamePattern = [];
 		userClickedPattern = [];
 		start = false;
 		level = 0;
-		heading.textContent = "Press Any Key to Start";
 	}
 }
 
