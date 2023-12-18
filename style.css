@@ -31,11 +31,30 @@ body {
 	align-items: center;
 	justify-content: center;
 	background-color: var(--cl-background);
+	font-family: "Press Start 2P", sans-serif;
+	position: relative;
+}
+
+/* Score Container */
+.score-container {
+	color: var(--cl-header-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 3rem;
+	font-size: 1.4rem;
+}
+
+.score-container p {
+	margin-bottom: 2rem;
 }
 
 /* Heading */
 h1 {
-	font-family: "Press Start 2P", sans-serif;
 	color: var(--cl-header-color);
 	font-size: 3.4rem;
 	text-align: center;

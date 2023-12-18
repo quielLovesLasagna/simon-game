@@ -25,8 +25,8 @@ Users should be able to:
 
 ### Screenshot
 
-![Project Overview](./assets/preview-1.png)
-![Project Overview](./assets/preview-2.png)
+![Project Overview](./assets/preview-1.1.png)
+![Project Overview](./assets/preview-2.1.png)
 
 ### Links
 

@@ -4,12 +4,16 @@
 const heading = document.querySelector("h1");
 const container = document.querySelector(".container");
 const body = document.querySelector("body");
+const currentScoreEl = document.querySelector(".current-score");
+const highestScoreEl = document.querySelector(".highest-score");
 
 // Initial state data/s
 let gamePattern = [];
 let userClickedPattern = [];
 let start = false;
 let level = 0;
+let currentScore = 0;
+let highestScore = 0;
 
 const buttonColors = ["red", "blue", "green", "yellow"];
 const sounds = {
@@ -22,7 +26,9 @@ const sounds = {
 
 // Function/s
 function playSound(name) {
+	// Get a sound in sounds object based on name argument
 	const sound = sounds[name];
+	// Play the sound
 	sound.play();
 }
 
@@ -37,6 +43,18 @@ function animatePress(currentColor) {
 	setTimeout(() => {
 		button.classList.remove("pressed");
 	}, 100);
+}
+
+// Restart game
+function startOver() {
+	gamePattern = [];
+	userClickedPattern = [];
+	start = false;
+	level = 0;
+	currentScore = 0;
+
+	// Display currentScore (after losing)
+	currentScoreEl.textContent = currentScore;
 }
 
 function nextSequence() {
@@ -68,14 +86,6 @@ function nextSequence() {
 	playSound(randomChosenColor);
 }
 
-// Restart game
-function startOver() {
-	gamePattern = [];
-	userClickedPattern = [];
-	start = false;
-	level = 0;
-}
-
 function checkAnswer(currentLevel) {
 	// Check if the most recent user answer matches the game pattern
 	if (userClickedPattern[currentLevel - 1] === gamePattern[currentLevel - 1]) {
@@ -86,12 +96,24 @@ function checkAnswer(currentLevel) {
 				nextSequence();
 			}, 1000);
 		}
+		// Increment currentScore by 1
+		currentScore += 1;
+		// Display currentScore
+		currentScoreEl.textContent = currentScore;
 	} else {
 		// Play wrong sound
 		playSound("wrong");
 
 		// Add "game-over" class to document body
 		body.classList.add("game-over");
+
+		// Check if currentScore is > highestScore
+		if (currentScore > highestScore) {
+			// If it is, set highScore to currentScore
+			highestScore = currentScore;
+			// Display highScore
+			highestScoreEl.textContent = highestScore;
+		}
 
 		// Remove "game-over" class after 200 milliseconds
 		setTimeout(() => {
@@ -130,7 +152,7 @@ function handleButtonClick(event) {
 }
 
 // Event Listener/s
-// For: When a button is clicked
+// For: When a button is clicked (uses event delegation)
 container.addEventListener("click", handleButtonClick);
 
 // For: Starting the game
